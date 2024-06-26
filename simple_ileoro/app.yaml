@@ -1,0 +1,36 @@
+runtime: nodejs20
+service: default
+env: standard
+
+handlers:
+
+    - url: /(.*\.(gif|png|jpg|css|js)(|\.map))$
+      static_files: dist/ask-book-app/\1
+      upload: dist/ask-book-app/(.*)(|\.map)
+      secure: always
+
+    - url: /(.*)
+      static_files: dist/ask-book-app/index.html
+      upload: dist/ask-book-app/index.html
+      secure: always
+
+    - url: /.*
+      script: auto
+      secure: always
+      redirect_http_response_code: 301
+  
+
+runtime: nodejs18
+
+env: standard
+
+handlers:
+  - url: /_next/static
+    static_dir: .next/static
+  - url: /static
+    static_dir: public
+  - url: /.*
+    script: auto
+
+# Optional: increase the instance class if your app needs more resources
+# instance_class: F2
